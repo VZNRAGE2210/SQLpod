@@ -1,12 +1,16 @@
 import ollama
 import streamlit as st
-
+from database import Query, Response
 st.title("SQLpod")
 #st.sidebar.image('https://images.crunchbase.com/image/upload/c_pad,f_auto,q_auto:eco,dpr_1/mvcufghlazueuq9peryr', use_column_width=True)
 
 # initialize history
 if "messages" not in st.session_state:
-    st.session_state["messages"] = []
+    st.session_state["messages"] = [
+        # set role
+        # set output
+        # and instructions
+    ]
 
 # init models
 if "model" not in st.session_state:
@@ -31,6 +35,8 @@ for message in st.session_state.get('messages', []):
 
 if prompt := st.chat_input("What is up?"):
     # add latest message to history in format {role, content}
+    # add prompt to Query
+    # store query id in session
     st.session_state["messages"].append({"role": "user", "content": prompt})
 
     with st.chat_message("user"):
@@ -39,6 +45,8 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("assistant"):
         message = st.write_stream(model_res_generator())
         st.session_state["messages"].append({"role": "assistant", "content": message})
+        # extract query id from session
+        # add response to Response
 
 st.sidebar.title("SQLpod History")
 st.sidebar.markdown('''
