@@ -119,7 +119,7 @@ def model_res_generator():
 # Main function to run the Streamlit app
 def main():
     # Sidebar
-    st.sidebar.title("SQLpad History")
+    
     st.sidebar.markdown('''
         - Basic queries
         - Employee table info
@@ -142,6 +142,15 @@ def main():
         with st.spinner("Thinking..."):
             assistant_response = next(model_res_generator())
             st.session_state["messages"].append({"role": "assistant", "content": assistant_response})
+    
+
+    
+
+    with st.chat_message("assistant"):
+        message = st.write_stream(model_res_generator())
+        st.session_state["messages"].append({"role": "assistant", "content": message})
+
+
 
 # Run the main function
 if __name__ == "__main__":
