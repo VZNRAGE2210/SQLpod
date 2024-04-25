@@ -35,7 +35,7 @@ class Report(Base):
     create_at=Column(DateTime,default=datetime.now)
            
 def get_db():
-       engine =create_engine('sqlite:///example.db')
+       engine =create_engine('sqlite:///Project.db')
        return sessionmaker(bind=engine)()
    
 def save_to_db(object):
@@ -46,5 +46,5 @@ def save_to_db(object):
 
 
 if __name__ == "__main__":
-    engine =create_engine('sqlite:///example.db')
+    engine =create_engine('sqlite:///project.db')
     Base.metadata.create_all(engine)
