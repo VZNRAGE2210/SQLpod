@@ -10,7 +10,16 @@ generation_config = {
   "top_p": 0.95,
   "top_k": 0,
   "max_output_tokens": 8192,
+  
+
 }
+
+top_p = st.slider("Adjust top p", min_value=0, max_value=100, value=100)
+top_k = st.slider("Adjust top k", min_value=0, max_value=100, value=100)
+temperature = st.slider("Adjust temperature", min_value=0, max_value=100, value=100)
+
+
+
 
 
 safety_settings = [
