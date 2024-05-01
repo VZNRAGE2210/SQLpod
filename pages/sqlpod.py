@@ -144,7 +144,7 @@ def main():
             st.session_state["messages"].append({"role": "assistant", "content": assistant_response})
     
 
-    
+
 
     with st.chat_message("assistant"):
         message = st.write_stream(model_res_generator())
