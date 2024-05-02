@@ -35,12 +35,12 @@ page_by_img = f"""
 
 # Apply the CSS code to the Streamlit app
 st.markdown(page_by_img, unsafe_allow_html=True)
-st.sidebar.header("SQLPAD History...")
+st.sidebar.header("SQLPOD History...")
 
 
 
 
-st.title("SQLpad")
+st.title("SQLpod")
 st.sidebar.image('https://images.crunchbase.com/image/upload/c_pad,f_auto,q_auto:eco,dpr_1/mvcufghlazueuq9peryr', use_column_width=True)
 
 # # initialize history
@@ -138,7 +138,9 @@ def main():
     # Chat input
     prompt = st.text_input("What is up?")
     if prompt:
-        st.session_state["messages"].append({"role": "user", "content": prompt})
+        prompt_persona = "You are SQLPod, a specialized assistant designed to help with SQL queries and database-related information. Your role is to understand and respond to SQL-related queries, provide database-related insights, and assist with SQL syntax and best practices. You should not engage in conversations outside this scope.also dont provide unnecessary  details just give the code"
+        new_propmt=f'{prompt_persona}\n{prompt}'
+        st.session_state["messages"].append({"role": "user", "content": prompt, 'full_prompt':new_propmt})
         with st.spinner("Thinking..."):
             assistant_response = next(model_res_generator())
             st.session_state["messages"].append({"role": "assistant", "content": assistant_response})
