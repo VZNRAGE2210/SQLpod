@@ -4,10 +4,9 @@ import os
 
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
-
-top_p = st.slider("Adjust top p", min_value=0.0, max_value=1.0, value=.95,)
-top_k = st.slider("Adjust top k", min_value=0.0, max_value=1.0, value=0.0)
-temperature = st.slider("Adjust temperature", min_value=0.0, max_value=1.0, value=1.0,step=.1)
+top_p = st.sidebar.slider("Adjust top p", min_value=0.0, max_value=1.0, value=0.95)
+top_k = st.sidebar.slider("Adjust top k", min_value=0.0, max_value=1.0, value=0.0)
+temperature = st.sidebar.slider("Adjust temperature", min_value=0.0, max_value=1.0, value=1.0, step=0.1)
 
 # Set up the model
 generation_config = {
@@ -17,9 +16,9 @@ generation_config = {
   "max_output_tokens": 8192,
 }
 
-st.write("Adjusted top p:", top_p)
-st.write("Adjusted top k:", top_k)
-st.write("Adjusted temperature:", temperature)
+st.sidebar.write("Adjusted top p:", top_p)
+st.sidebar.write("Adjusted top k:", top_k)
+st.sidebar.write("Adjusted temperature:", temperature)
 
 
 
