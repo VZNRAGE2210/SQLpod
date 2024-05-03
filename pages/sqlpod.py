@@ -130,22 +130,21 @@ def main():
 
     # Display chat messages from history
     for message in st.session_state.get('messages', []):
-        if message["role"] == "user":
-            st.text(f"User: {message['content']}")
-        elif message["role"] == "assistant":
-            st.text(f"Assistant: {message['content']}")
+        if message["role"] == "assistant":
+            st.markdown(f"Assistant: {message['content']}")
 
     # Chat input
-    prompt = st.text_input("What is up?")
+    with st.form("chat_form"):
+        prompt = st.text_input("Ask me anything")
+        submit_button = st.form_submit_button("Ask")
     if prompt:
-        prompt_persona = "You are SQLPod, a specialized assistant designed to help with SQL queries and database-related information. Your role is to understand and respond to SQL-related queries, provide database-related insights, and assist with SQL syntax and best practices. You should not engage in conversations outside this scope.also dont provide unnecessary  details just give the code"
-        new_propmt=f'{prompt_persona}\n{prompt}'
-        st.session_state["messages"].append({"role": "user", "content": prompt, 'full_prompt':new_propmt})
+        prompt_persona = "Your role is to understand and respond to SQL-related queries, provide database-related insights, and assist with SQL syntax and best practices. You should not engage in conversations outside this scope.also dont provide unnecessary  details just give the code\n\n"
+        new_propmt=f'{prompt_persona}{prompt}'
+        st.sidebar.write("Prompt: ", new_propmt)
+        st.session_state["messages"].append({"role": "user", "content": new_propmt})
         with st.spinner("Thinking..."):
             assistant_response = next(model_res_generator())
             st.session_state["messages"].append({"role": "assistant", "content": assistant_response})
-    
-
 
 
     with st.chat_message("assistant"):
